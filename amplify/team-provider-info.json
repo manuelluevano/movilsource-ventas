@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-movilsource-dev-221558-authRole",
+      "UnauthRoleArn": "arn:aws:iam::202146577832:role/amplify-movilsource-dev-221558-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::202146577832:role/amplify-movilsource-dev-221558-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-movilsource-dev-221558-deployment",
+      "UnauthRoleName": "amplify-movilsource-dev-221558-unauthRole",
+      "StackName": "amplify-movilsource-dev-221558",
+      "StackId": "arn:aws:cloudformation:us-east-2:202146577832:stack/amplify-movilsource-dev-221558/69bd6500-cde8-11ed-8cde-0607049761a1",
+      "AmplifyAppId": "d2ftxf3yjb2za7"
+    },
+    "categories": {
+      "auth": {
+        "movilsourcedb5befb5": {}
+      },
+      "api": {
+        "movilsource": {}
+      }
+    }
+  }
+}
