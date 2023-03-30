@@ -2,7 +2,7 @@
   "name": "movilsource",
   "version": "0.1.0",
   "private": true,
-  "homepage": "manuelluevano.github.io/movilsource-ventas",
+  "homepage": "https://manuelluevano.github.io/movilsource-ventas",
   "dependencies": {
     "@aws-amplify/ui-react": "^1.2.26",
     "@emotion/react": "^11.10.6",
