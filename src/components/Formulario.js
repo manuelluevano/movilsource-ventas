@@ -3,8 +3,12 @@ import AlertSuccess from "./Alert";
 import Form from "react-bootstrap/Form";
 import { API, graphqlOperation } from "aws-amplify";
 import { createTodo } from "../graphql/mutations";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 const Formulario = () => {
+  const [show, setShow] = React.useState(false);
+
   const [servicio, setServicio] = React.useState("");
   const [nombreCliente, setNombreCliente] = React.useState("");
   const [numeroTelefono, setNumeroTelefono] = React.useState("");
@@ -62,12 +66,12 @@ const Formulario = () => {
     // console.log("datos todo", servicio, nombreCliente);
   };
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   return (
     <>
-      <h2 className="titleFormulario formulario">
-        Registro Servicio Movilsource 📱
-      </h2>
-
       <Form action="" method="get" className="formulario">
         <h4 className="padding	">Datos del Cliente</h4>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -193,9 +197,36 @@ const Formulario = () => {
             onChange={(e) => setStatus(e.target.value)}
           />
         </Form.Group>
-        {/* <AlertSuccess /> */}
       </Form>
-      <button onClick={() => handleSubmit()}>Guardar Servicio</button>
+      {/* <button onClick={() => handleSubmit()}>Guardar Servicio</button> */}
+      <Alert show={show} variant="success">
+        <div className="formulario padding">
+          <p>Servicio Guardado Correctamente</p>
+        </div>
+      </Alert>
+
+      {!show && (
+        <div className="formulario padding">
+          <Button
+            style={{
+              fontSize: 30,
+              textAlign: "center",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => {
+              handleSubmit();
+              setShow(true);
+              setTimeout(() => {
+                setShow(false);
+                refreshPage();
+              }, 3000);
+            }}
+          >
+            Guardar Servicio
+          </Button>
+        </div>
+      )}
     </>
   );
 };

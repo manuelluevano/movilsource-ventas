@@ -48,7 +48,7 @@ const Ventas = () => {
     <>
       <Component>
         <Box>
-          <Typography variant="h4">Ventas</Typography>
+          {/* <Typography variant="h4">Ventas</Typography> */}
           <Table>
             <TableHead>
               <TableRow>
