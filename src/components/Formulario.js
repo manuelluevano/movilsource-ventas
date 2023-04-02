@@ -109,10 +109,18 @@ const Formulario = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label for="">Fecha: </Form.Label>
-          <Form.Control
+          {/* <Form.Control
             type="text"
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
+          /> */}
+          <Form.Control
+            type="date"
+            value={fecha}
+            onChange={(e) => {
+              setFecha(e.target.value);
+              console.log("Fecha", fecha);
+            }}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -190,11 +198,22 @@ const Formulario = () => {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label for="">Estatus del Equipo</Form.Label>
-          <Form.Control
+          <Form.Label for="">
+            Estado del equipo: {status ? "=> ENTREGADO ✅" : "=> PENDIENTE 🚫"}
+          </Form.Label>
+          {/* <Form.Control
             type="textarea"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
+            disabled
+          /> */}
+          <Form.Check
+            type="switch"
+            id="custom-switch"
+            label="Estatus del equipo"
+            onChange={(e) => {
+              status ? setStatus(false) : setStatus(true);
+            }}
           />
         </Form.Group>
       </Form>

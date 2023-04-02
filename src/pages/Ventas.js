@@ -3,14 +3,13 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listTodos } from "../graphql/queries";
 import {
   Box,
-  Typography,
+  // Typography,
   Table,
   TableHead,
   TableRow,
   TableCell,
   TableBody,
   styled,
-  Button,
 } from "@mui/material";
 
 const Component = styled(Box)`
@@ -37,12 +36,17 @@ const Ventas = () => {
 
   React.useEffect(() => {
     (async () => {
-      const { data } = await API.graphql(graphqlOperation(listTodos));
+      const { data } = await API.graphql(
+        graphqlOperation(listTodos, {
+          typename: "Order",
+          sortDirection: "ASC", // or ASC
+        })
+      );
+
       setTodos(data.listTodos.items);
+      // console.log(data.listTodos.items);
     })();
   }, []);
-
-  // console.log(todos[0].status);
 
   return (
     <>
@@ -79,20 +83,32 @@ const Ventas = () => {
                 <TableRow>
                   <TableCell>{todo.id}</TableCell>
                   <TableCell>{todo.createdAt}</TableCell>
-                  <TableCell>{todo.servicio}</TableCell>
-                  <TableCell>{todo.numeroNota}</TableCell>
-                  <TableCell>{todo.nombreCliente}</TableCell>
+                  <TableCell className="capitalize">{todo.servicio}</TableCell>
+                  <TableCell className="capitalize">
+                    {todo.numeroNota}
+                  </TableCell>
+                  <TableCell className="capitalize">
+                    {todo.nombreCliente}
+                  </TableCell>
                   <TableCell>{todo.numeroTelefono}</TableCell>
                   <TableCell>{todo.numeroSerie}</TableCell>
-                  <TableCell>{todo.marca}</TableCell>
-                  <TableCell>{todo.modelo}</TableCell>
-                  <TableCell>{todo.problemaSolicitud}</TableCell>
+                  <TableCell className="capitalize">{todo.marca}</TableCell>
+                  <TableCell className="capitalize">{todo.modelo}</TableCell>
+                  <TableCell className="capitalize">
+                    {todo.problemaSolicitud}
+                  </TableCell>
                   <TableCell>{todo.imei}</TableCell>
                   <TableCell>{todo.fecha}</TableCell>
-                  <TableCell>{todo.dejoEquipoCon}</TableCell>
-                  <TableCell>{todo.observacionTecnico}</TableCell>
+                  <TableCell className="capitalize">
+                    {todo.dejoEquipoCon}
+                  </TableCell>
+                  <TableCell className="capitalize">
+                    {todo.observacionTecnico}
+                  </TableCell>
                   <TableCell>
-                    {todo.status ? "Entregado ✅" : "Pendiente ⚠️"}
+                    <p className="status">
+                      {todo.status ? "Entregado ✅" : "Pendiente ⚠️"}
+                    </p>
                   </TableCell>
                   <TableCell>${todo.gastoServicio}</TableCell>
                   <TableCell>${todo.precioCliente}</TableCell>
