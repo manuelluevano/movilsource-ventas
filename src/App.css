@@ -3,8 +3,8 @@
   margin: 0 auto;
   text-align: center;
   font-size: 60px;
-  color: black;
-  background-color: orange;
+  color: white;
+  background-color: #e35f21;
 }
 
 .fondo {
@@ -33,6 +33,10 @@
 .status {
   font-size: 30px;
   text-align: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 @keyframes App-logo-spin {

@@ -1,16 +1,15 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import // BrowserRouter,
+// Routes,
+// Route,
+// createBrowserRouter,
+// RouterProvider,
+"react-router-dom";
 import "./App.css";
-import NavBar from "./components/NavBar";
-import Servicios from "./pages/Servicios";
-import Accesorios from "./pages/Accesorios";
+// import NavBar from "./components/NavBar";
+// import Servicios from "./pages/Servicios";
+// import Accesorios from "./pages/Accesorios";
 
-import Inicio from "./pages/Inicio";
+// import Inicio from "./pages/Inicio";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Amplify } from "aws-amplify";
 import awsconfig from "./aws-exports";
@@ -23,7 +22,7 @@ function App() {
   return (
     <>
       <div>
-        <h1 className=" titulo">MOVILSOURCE</h1>
+        <h1 className="titulo">MOVILSOURCE</h1>
 
         <Formulario />
         <Ventas />

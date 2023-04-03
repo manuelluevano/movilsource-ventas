@@ -11,15 +11,16 @@ import {
   TableBody,
   styled,
 } from "@mui/material";
+import { Button } from "react-bootstrap";
 
 const Component = styled(Box)`
-  width: 90%;
+  width: 100%;
   margin: 50px auto;
   & > h4 {
     margin-bottom: 20px;
   }
   & > div > table > thead {
-    background-color: #000;
+    background-color: #e35f21;
   }
   & > div > table > thead > tr > th {
     color: #ffffff;
@@ -33,6 +34,7 @@ const Component = styled(Box)`
 
 const Ventas = () => {
   const [todos, setTodos] = React.useState([]);
+  const [edit, setEdit] = React.useState(false);
 
   React.useEffect(() => {
     (async () => {
@@ -56,8 +58,8 @@ const Ventas = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
-                <TableCell>Servicio Creado</TableCell>
+                {/* <TableCell>Id</TableCell> */}
+                {/* <TableCell>Servicio Creado</TableCell> */}
                 <TableCell>Servicio</TableCell>
                 <TableCell>Numero Nota</TableCell>
                 <TableCell>Nombre Cliente</TableCell>
@@ -74,15 +76,15 @@ const Ventas = () => {
                 <TableCell>Gasto Servicio</TableCell>
                 <TableCell>Precio a Cliente</TableCell>
                 <TableCell>Ganancia Final</TableCell>
-                {/* <TableCell>Herramientas</TableCell> */}
+                <TableCell>Editar</TableCell>
               </TableRow>
             </TableHead>
             {todos.map((todo) => (
               <TableBody>
                 {/* <TableRow> */}
                 <TableRow>
-                  <TableCell>{todo.id}</TableCell>
-                  <TableCell>{todo.createdAt}</TableCell>
+                  {/* <TableCell>{todo.id}</TableCell> */}
+                  {/* <TableCell>{todo.createdAt}</TableCell> */}
                   <TableCell className="capitalize">{todo.servicio}</TableCell>
                   <TableCell className="capitalize">
                     {todo.numeroNota}
@@ -91,7 +93,9 @@ const Ventas = () => {
                     {todo.nombreCliente}
                   </TableCell>
                   <TableCell>{todo.numeroTelefono}</TableCell>
-                  <TableCell>{todo.numeroSerie}</TableCell>
+                  <TableCell className="uppercase">
+                    {todo.numeroSerie}
+                  </TableCell>
                   <TableCell className="capitalize">{todo.marca}</TableCell>
                   <TableCell className="capitalize">{todo.modelo}</TableCell>
                   <TableCell className="capitalize">
@@ -116,16 +120,18 @@ const Ventas = () => {
                     ${todo.precioCliente - todo.gastoServicio}
                   </TableCell>
 
-                  {/* <TableCell>
+                  <TableCell>
                     <Button
                       variant="contained"
                       color="info"
-                      // onClick={() => removeEntry(user.id)}
-                      onClick={() => console.log("Press")}
+                      onClick={() => {
+                        console.log("Press", todo.id);
+                        edit ? setEdit(false) : setEdit(true);
+                      }}
                     >
-                      Editar
+                      <p className="status">{edit ? "Guardar" : ""}📝</p>
                     </Button>
-                  </TableCell> */}
+                  </TableCell>
                 </TableRow>
                 {/* </TableRow> */}
               </TableBody>

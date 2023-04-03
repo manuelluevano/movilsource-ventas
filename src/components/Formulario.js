@@ -1,5 +1,5 @@
 import * as React from "react";
-import AlertSuccess from "./Alert";
+// import AlertSuccess from "./Alert";
 import Form from "react-bootstrap/Form";
 import { API, graphqlOperation } from "aws-amplify";
 import { createTodo } from "../graphql/mutations";
@@ -12,7 +12,7 @@ const Formulario = () => {
   const [servicio, setServicio] = React.useState("");
   const [nombreCliente, setNombreCliente] = React.useState("");
   const [numeroTelefono, setNumeroTelefono] = React.useState("");
-  const [numeroNota, setNumeroNota] = React.useState("");
+  const [numeroNota, setNumeroNota] = React.useState(0);
   const [numeroSerie, setNumeroSerie] = React.useState("");
   const [imei, setImei] = React.useState("");
   const [fecha, setFecha] = React.useState("");
@@ -51,7 +51,7 @@ const Formulario = () => {
     setServicio("");
     setNombreCliente("");
     setNumeroTelefono("");
-    setNumeroNota("");
+    setNumeroNota(0);
     setFecha("");
     setNumeroSerie("");
     setImei("");
@@ -63,7 +63,7 @@ const Formulario = () => {
     setPrecioCliente();
     setObservacionTecnico("");
     setStatus(false);
-    // console.log("datos todo", servicio, nombreCliente);
+    console.log("numeor nota", numeroNota);
   };
 
   function refreshPage() {
@@ -239,7 +239,7 @@ const Formulario = () => {
               setTimeout(() => {
                 setShow(false);
                 refreshPage();
-              }, 3000);
+              }, 2000);
             }}
           >
             Guardar Servicio
