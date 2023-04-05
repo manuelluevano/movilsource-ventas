@@ -1,5 +1,4 @@
 import Formulario from "../components/Formulario";
-import ListaServicios from "./ListaServicios";
 
 function Servicios() {
   return (
@@ -7,7 +6,6 @@ function Servicios() {
       <div className="App">
         <Formulario />
       </div>
-      <ListaServicios />
     </>
   );
 }

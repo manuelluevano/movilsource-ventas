@@ -3,7 +3,6 @@ import { API, graphqlOperation } from "aws-amplify";
 import { listTodos } from "../graphql/queries";
 import {
   Box,
-  // Typography,
   Table,
   TableHead,
   TableRow,
@@ -12,9 +11,10 @@ import {
   styled,
 } from "@mui/material";
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Component = styled(Box)`
-  width: 100%;
+  max-width: 100%;
   margin: 50px auto;
   & > h4 {
     margin-bottom: 20px;
@@ -34,7 +34,6 @@ const Component = styled(Box)`
 
 const Ventas = () => {
   const [todos, setTodos] = React.useState([]);
-  const [edit, setEdit] = React.useState(false);
 
   React.useEffect(() => {
     (async () => {
@@ -54,7 +53,7 @@ const Ventas = () => {
     <>
       <Component>
         <Box>
-          {/* <Typography variant="h4">Ventas</Typography> */}
+          {/* <Typography className="formulario">Registro de Ventas</Typography> */}
           <Table>
             <TableHead>
               <TableRow>
@@ -75,6 +74,7 @@ const Ventas = () => {
                 <TableCell>Status</TableCell>
                 <TableCell>Gasto Servicio</TableCell>
                 <TableCell>Precio a Cliente</TableCell>
+                <TableCell>Abono</TableCell>
                 <TableCell>Ganancia Final</TableCell>
                 <TableCell>Editar</TableCell>
               </TableRow>
@@ -116,20 +116,23 @@ const Ventas = () => {
                   </TableCell>
                   <TableCell>${todo.gastoServicio}</TableCell>
                   <TableCell>${todo.precioCliente}</TableCell>
+                  <TableCell>${todo.abono}</TableCell>
                   <TableCell>
                     ${todo.precioCliente - todo.gastoServicio}
                   </TableCell>
-
                   <TableCell>
                     <Button
                       variant="contained"
                       color="info"
                       onClick={() => {
-                        console.log("Press", todo.id);
-                        edit ? setEdit(false) : setEdit(true);
+                        // console.log("Press", todo.id);
+                        // window.location.href =
+                        //   "/movilsource-ventas/editService";
                       }}
                     >
-                      <p className="status">{edit ? "Guardar" : ""}📝</p>
+                      <Link to={`/movilsource-ventas/editService/${todo.id}`}>
+                        <p className="status">📝</p>
+                      </Link>
                     </Button>
                   </TableCell>
                 </TableRow>

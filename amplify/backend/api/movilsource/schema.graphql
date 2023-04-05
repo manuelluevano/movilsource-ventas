@@ -19,5 +19,6 @@ type Todo @model {
   observacionTecnico: String
   status: Boolean
   gastoServicio: Int
+  abono: Int
   precioCliente: Int
 }

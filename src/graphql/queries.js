@@ -19,6 +19,7 @@ export const getTodo = /* GraphQL */ `
       observacionTecnico
       status
       gastoServicio
+      abono
       precioCliente
       createdAt
       updatedAt
@@ -48,6 +49,7 @@ export const listTodos = /* GraphQL */ `
         observacionTecnico
         status
         gastoServicio
+        abono
         precioCliente
         createdAt
         updatedAt

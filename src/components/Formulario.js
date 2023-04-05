@@ -2,17 +2,23 @@ import * as React from "react";
 // import AlertSuccess from "./Alert";
 import Form from "react-bootstrap/Form";
 import { API, graphqlOperation } from "aws-amplify";
-import { createTodo } from "../graphql/mutations";
+import { createTodo, updateTodo } from "../graphql/mutations";
+import { getTodo } from "../graphql/queries";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
+import { useParams } from "react-router";
 
 const Formulario = () => {
+  const { id } = useParams();
+
+  // const [datosID, setDatosId] = React.useState([]);
+
   const [show, setShow] = React.useState(false);
 
   const [servicio, setServicio] = React.useState("");
   const [nombreCliente, setNombreCliente] = React.useState("");
   const [numeroTelefono, setNumeroTelefono] = React.useState("");
-  const [numeroNota, setNumeroNota] = React.useState(0);
+  const [numeroNota, setNumeroNota] = React.useState();
   const [numeroSerie, setNumeroSerie] = React.useState("");
   const [imei, setImei] = React.useState("");
   const [fecha, setFecha] = React.useState("");
@@ -23,52 +29,121 @@ const Formulario = () => {
   const [observacionTecnico, setObservacionTecnico] = React.useState("");
   const [status, setStatus] = React.useState(false);
   const [gastoServicio, setGastoServicio] = React.useState();
+  const [abono, setAbono] = React.useState();
   const [precioCliente, setPrecioCliente] = React.useState();
 
-  const handleSubmit = async () => {
-    console.log("press");
-    await API.graphql(
-      graphqlOperation(createTodo, {
-        input: {
-          servicio,
-          nombreCliente,
-          numeroTelefono,
-          numeroNota,
-          numeroSerie,
-          imei,
-          fecha,
-          marca,
-          modelo,
-          problemaSolicitud,
-          dejoEquipoCon,
-          observacionTecnico,
-          status,
-          gastoServicio,
-          precioCliente,
-        },
+  //REVISAR SI VAMOS A EDITAR
+  React.useEffect(() => {
+    (async () => {
+      try {
+        if (id) {
+          console.log("Tenemos ID: " + id);
+          await obtenerID();
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
+
+  const obtenerID = async () => {
+    const data = await API.graphql(
+      graphqlOperation(getTodo, {
+        id,
       })
     );
-    setServicio("");
-    setNombreCliente("");
-    setNumeroTelefono("");
-    setNumeroNota(0);
-    setFecha("");
-    setNumeroSerie("");
-    setImei("");
-    setMarca("");
-    setModelo("");
-    setProblemaSolicitud("");
-    setDejoEquipoCon("");
-    setGastoServicio();
-    setPrecioCliente();
-    setObservacionTecnico("");
-    setStatus(false);
-    console.log("numeor nota", numeroNota);
+    console.log("Data", data.data.getTodo);
+
+    //INGRESAMOS LOS DATOS
+    setServicio(data.data.getTodo.servicio);
+    setNombreCliente(data.data.getTodo.nombreCliente);
+    setNumeroTelefono(data.data.getTodo.numeroTelefono);
+    setNumeroNota(data.data.getTodo.numeroNota);
+    setFecha(data.data.getTodo.fecha);
+    setNumeroSerie(data.data.getTodo.numeroSerie);
+    setImei(data.data.getTodo.imei);
+    setMarca(data.data.getTodo.marca);
+    setModelo(data.data.getTodo.modelo);
+    setProblemaSolicitud(data.data.getTodo.problemaSolicitud);
+    setDejoEquipoCon(data.data.getTodo.dejoEquipoCon);
+    setGastoServicio(data.data.getTodo.gastoServicio);
+    setAbono(data.data.getTodo.abono);
+    setPrecioCliente(data.data.getTodo.precioCliente);
+    setObservacionTecnico(data.data.getTodo.observacionTecnico);
+    setStatus(data.data.getTodo.status);
   };
 
-  function refreshPage() {
-    window.location.reload(false);
-  }
+  const handleSubmit = async () => {
+    if (id) {
+      console.log("Editamos");
+      const data = await API.graphql(
+        graphqlOperation(updateTodo, {
+          input: {
+            id,
+            servicio,
+            nombreCliente,
+            numeroTelefono,
+            numeroNota,
+            numeroSerie,
+            imei,
+            fecha,
+            marca,
+            modelo,
+            problemaSolicitud,
+            dejoEquipoCon,
+            observacionTecnico,
+            status,
+            gastoServicio,
+            abono,
+            precioCliente,
+          },
+        })
+      );
+      console.log("Result", data);
+    } else {
+      await API.graphql(
+        graphqlOperation(createTodo, {
+          input: {
+            servicio,
+            nombreCliente,
+            numeroTelefono,
+            numeroNota,
+            numeroSerie,
+            imei,
+            fecha,
+            marca,
+            modelo,
+            problemaSolicitud,
+            dejoEquipoCon,
+            observacionTecnico,
+            status,
+            gastoServicio,
+            abono,
+            precioCliente,
+          },
+        })
+      );
+      setServicio("");
+      setNombreCliente("");
+      setNumeroTelefono("");
+      setNumeroNota();
+      setFecha("");
+      setNumeroSerie("");
+      setImei("");
+      setMarca("");
+      setModelo("");
+      setProblemaSolicitud("");
+      setDejoEquipoCon("");
+      setGastoServicio();
+      setAbono();
+      setPrecioCliente();
+      setObservacionTecnico("");
+      setStatus();
+    }
+    // Redireccionar
+
+    window.location.href = "/movilsource-ventas/ventas";
+  };
 
   return (
     <>
@@ -181,6 +256,14 @@ const Formulario = () => {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label for="">Abono</Form.Label>
+          <Form.Control
+            type="text"
+            value={abono}
+            onChange={(e) => setAbono(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label for="">Precio a Cliente</Form.Label>
           <Form.Control
             type="text"
@@ -217,10 +300,14 @@ const Formulario = () => {
           />
         </Form.Group>
       </Form>
-      {/* <button onClick={() => handleSubmit()}>Guardar Servicio</button> */}
+
       <Alert show={show} variant="success">
         <div className="formulario padding">
-          <p>Servicio Guardado Correctamente</p>
+          {id ? (
+            <p>Servicio Actualizado Correctamente</p>
+          ) : (
+            <p>Servicio Guardado Correctamente</p>
+          )}
         </div>
       </Alert>
 
@@ -238,11 +325,10 @@ const Formulario = () => {
               setShow(true);
               setTimeout(() => {
                 setShow(false);
-                refreshPage();
               }, 2000);
             }}
           >
-            Guardar Servicio
+            {id ? "Actualizar Servicio" : "Guardar Servicio"}
           </Button>
         </div>
       )}

@@ -22,6 +22,7 @@ export const createTodo = /* GraphQL */ `
       observacionTecnico
       status
       gastoServicio
+      abono
       precioCliente
       createdAt
       updatedAt
@@ -49,6 +50,7 @@ export const updateTodo = /* GraphQL */ `
       observacionTecnico
       status
       gastoServicio
+      abono
       precioCliente
       createdAt
       updatedAt
@@ -76,6 +78,7 @@ export const deleteTodo = /* GraphQL */ `
       observacionTecnico
       status
       gastoServicio
+      abono
       precioCliente
       createdAt
       updatedAt

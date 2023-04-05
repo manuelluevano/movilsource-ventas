@@ -1,28 +1,43 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <div>
-      <Nav variant="tabs" defaultActiveKey="/">
-        <Nav.Item>
-          <Nav.Link href="/">Inicio</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="servicios" href="/servicios">
+      <ul>
+        {/* <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to="/movilsource-ventas"
+          >
+            Inicio
+          </NavLink>
+        </li> */}
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to="/movilsource-ventas/formulario"
+          >
             Servicios
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/accesorios">Accesorios</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link href="/ventas">Ventas</Nav.Link>
-        </Nav.Item>
-      </Nav>
-
-      <Outlet />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to="/movilsource-ventas/accesorios"
+          >
+            Accesorios
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to="/movilsource-ventas/ventas"
+          >
+            Ventas
+          </NavLink>
+        </li>
+      </ul>
     </div>
   );
 };
