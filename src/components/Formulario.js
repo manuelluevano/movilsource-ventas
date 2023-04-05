@@ -142,7 +142,8 @@ const Formulario = () => {
     }
     // Redireccionar
 
-    window.location.href = "/movilsource-ventas/ventas";
+    // window.location.href = "/movilsource-ventas/ventas";
+    window.history.go(-1);
   };
 
   return (

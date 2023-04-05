@@ -1,6 +1,7 @@
 import * as React from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { listTodos } from "../graphql/queries";
+import { deleteTodo } from "../graphql/mutations";
 import {
   Box,
   Table,
@@ -10,7 +11,7 @@ import {
   TableBody,
   styled,
 } from "@mui/material";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 const Component = styled(Box)`
@@ -49,6 +50,31 @@ const Ventas = () => {
     })();
   }, []);
 
+  const handleDelete = async (id) => {
+    console.log("Delete", id);
+
+    var answer = window.confirm("Eliminar Servicio?");
+    if (answer) {
+      //some code
+      console.log("Si");
+      await API.graphql(
+        graphqlOperation(deleteTodo, {
+          input: {
+            id,
+          },
+        })
+      );
+      refreshPage();
+    } else {
+      //some code
+      console.log("No");
+    }
+  };
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   return (
     <>
       <Component>
@@ -76,7 +102,7 @@ const Ventas = () => {
                 <TableCell>Precio a Cliente</TableCell>
                 <TableCell>Abono</TableCell>
                 <TableCell>Ganancia Final</TableCell>
-                <TableCell>Editar</TableCell>
+                <TableCell>Herramienta</TableCell>
               </TableRow>
             </TableHead>
             {todos.map((todo) => (
@@ -121,18 +147,11 @@ const Ventas = () => {
                     ${todo.precioCliente - todo.gastoServicio}
                   </TableCell>
                   <TableCell>
-                    <Button
-                      variant="contained"
-                      color="info"
-                      onClick={() => {
-                        // console.log("Press", todo.id);
-                        // window.location.href =
-                        //   "/movilsource-ventas/editService";
-                      }}
-                    >
-                      <Link to={`/movilsource-ventas/editService/${todo.id}`}>
-                        <p className="status">📝</p>
-                      </Link>
+                    <Link to={`/movilsource-ventas/editService/${todo.id}`}>
+                      <p className="status">📝</p>
+                    </Link>
+                    <Button onClick={() => handleDelete(todo.id)}>
+                      <p className="status">❌</p>
                     </Button>
                   </TableCell>
                 </TableRow>
