@@ -1,35 +1,19 @@
 import { Box, CircularProgress, Fab } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Check, Save } from "@mui/icons-material";
-import { green } from "@mui/material/colors";
+import { Check, Delete, Save } from "@mui/icons-material";
+import { green, red } from "@mui/material/colors";
 import { API, graphqlOperation } from "aws-amplify";
-import { updateTodo } from "../graphql/mutations";
+import { deleteTodo } from "../graphql/mutations";
 
-const EditService = ({ params, rowId, setRowId }) => {
+const DeleteService = ({ params, rowId, setRowId }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const editService = async () => {
     const data = await API.graphql(
-      graphqlOperation(updateTodo, {
+      graphqlOperation(deleteTodo, {
         input: {
-          id: params.row.id,
-          servicio: params.row.servicio,
-          nombreCliente: params.row.nombreCliente,
-          numeroTelefono: params.row.numeroTelefono,
-          numeroNota: params.row.numeroNota,
-          numeroSerie: params.row.numeroSerie,
-          imei: params.row.imei,
-          fecha: params.row.fecha,
-          marca: params.row.marca,
-          modelo: params.row.modelo,
-          problemaSolicitud: params.row.problemaSolicitud,
-          dejoEquipoCon: params.row.dejoEquipoCon,
-          observacionTecnico: params.row.observacionTecnico,
-          status: params.row.status,
-          gastoServicio: params.row.gastoServicio,
-          abono: params.row.abono,
-          precioCliente: params.row.precioCliente,
+          id: rowId,
         },
       })
     );
@@ -55,7 +39,7 @@ const EditService = ({ params, rowId, setRowId }) => {
   return (
     <Box
       sx={{
-        m: 0.5,
+        m: 1,
         position: "relative",
       }}
     >
@@ -65,7 +49,7 @@ const EditService = ({ params, rowId, setRowId }) => {
           sx={{
             width: 40,
             height: 40,
-            bgcolor: green[500],
+            bgcolor: red[500],
             "&:hover": { bgcolor: green[700] },
           }}
         >
@@ -81,14 +65,14 @@ const EditService = ({ params, rowId, setRowId }) => {
           disabled={params.id !== rowId || loading}
           onClick={handleSubmit}
         >
-          <Save />
+          <Delete />
         </Fab>
       )}
       {loading && (
         <CircularProgress
           size={52}
           sx={{
-            color: green[500],
+            color: red[500],
             position: "absolute",
             top: -6,
             left: -6,
@@ -100,4 +84,4 @@ const EditService = ({ params, rowId, setRowId }) => {
   );
 };
 
-export default EditService;
+export default DeleteService;

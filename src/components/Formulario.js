@@ -7,6 +7,7 @@ import { getTodo } from "../graphql/queries";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import { useParams } from "react-router";
+import { TextField } from "@mui/material";
 
 const Formulario = () => {
   const { id } = useParams();
@@ -52,7 +53,7 @@ const Formulario = () => {
         id,
       })
     );
-    console.log("Data", data.data.getTodo);
+    // console.log("Data", data.data.getTodo);
 
     //INGRESAMOS LOS DATOS
     setServicio(data.data.getTodo.servicio);
@@ -139,6 +140,7 @@ const Formulario = () => {
       setPrecioCliente();
       setObservacionTecnico("");
       setStatus();
+      window.history.go(-4);
     }
     // Redireccionar
 
@@ -157,6 +159,7 @@ const Formulario = () => {
             value={servicio}
             onChange={(e) => setServicio(e.target.value)}
           />
+          {/* <TextField id="outlined-basic" label="Servicio" variant="outlined" /> */}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label for="">Nombre del Cliente: </Form.Label>

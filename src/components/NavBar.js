@@ -18,15 +18,15 @@ const NavBar = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
             to="/movilsource-ventas/formulario"
           >
-            Servicios
+            Registro Servicios
           </NavLink>
         </li>
         <li>
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}
-            to="/movilsource-ventas/accesorios"
+            to="/movilsource-ventas/formularioAccesorio"
           >
-            Accesorios
+            Registro Accesorios
           </NavLink>
         </li>
         <li>
@@ -34,7 +34,15 @@ const NavBar = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
             to="/movilsource-ventas/ventas"
           >
-            Ventas
+            Ventas Servicios
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? "active" : "")}
+            to="/movilsource-ventas/ventasAccesorios"
+          >
+            Ventas Accesorios
           </NavLink>
         </li>
       </ul>

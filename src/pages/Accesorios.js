@@ -1,10 +1,10 @@
 import React from "react";
-import FormularioAccesorios from "../components/FormularioAccesorios";
+import FormularioAccesorio from "../components/FormularioAccesorio";
 
 const Accesorios = () => {
   return (
     <div>
-      <FormularioAccesorios />
+      <FormularioAccesorio />
     </div>
   );
 };
