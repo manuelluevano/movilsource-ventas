@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/movilsource-ventas/static/css/main.1591e5ce.css",
-    "main.js": "/movilsource-ventas/static/js/main.df5b212c.js",
+    "main.css": "/movilsource-ventas/static/css/main.2a13649a.css",
+    "main.js": "/movilsource-ventas/static/js/main.a49f1037.js",
     "static/js/787.bfde14d9.chunk.js": "/movilsource-ventas/static/js/787.bfde14d9.chunk.js",
     "index.html": "/movilsource-ventas/index.html",
-    "main.1591e5ce.css.map": "/movilsource-ventas/static/css/main.1591e5ce.css.map",
-    "main.df5b212c.js.map": "/movilsource-ventas/static/js/main.df5b212c.js.map",
+    "main.2a13649a.css.map": "/movilsource-ventas/static/css/main.2a13649a.css.map",
+    "main.a49f1037.js.map": "/movilsource-ventas/static/js/main.a49f1037.js.map",
     "787.bfde14d9.chunk.js.map": "/movilsource-ventas/static/js/787.bfde14d9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1591e5ce.css",
-    "static/js/main.df5b212c.js"
+    "static/css/main.2a13649a.css",
+    "static/js/main.a49f1037.js"
   ]
 }
