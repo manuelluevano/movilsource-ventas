@@ -1,30 +1,43 @@
 import * as React from "react";
-import { Button } from "react-bootstrap";
-// import AlertSuccess from "./Alert";
+import { Alert, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-// import { API, graphqlOperation } from "aws-amplify";
+import { API, graphqlOperation } from "aws-amplify";
+import { createAccesorio } from "../graphql/mutations";
+import ImageUpload from "./ImageUpload";
 
 const FormularioAccesorio = () => {
+  const [show, setShow] = React.useState(false);
+
   const [nombre, setNombre] = React.useState("");
   const [cantidad, setCantidad] = React.useState();
   const [precioLocal, setPrecioLocal] = React.useState();
   const [precioPublico, setPrecioPublico] = React.useState();
+  const [imagen, setImagen] = React.useState("");
 
-  //   const handleSubmit = async () => {
+  console.log("imagen", imagen);
 
-  //     //   await API.graphql(
-  //     //     graphqlOperation(createTodo, {
-  //     //       input: {
-  //     //         nombre,
-  //     //         cantidad,
-  //     //       },
-  //     //     })
-  //     //   );
-  //     //   setNombre("");
-  //     //   setCantidad("");
-  //     //   window.history.go(-4);
-  //     // window.history.go(-1);
-  //   };
+  const handleSubmit = async () => {
+    const data = await API.graphql(
+      graphqlOperation(createAccesorio, {
+        input: {
+          nombre,
+          cantidad,
+          precioLocal,
+          precioPublico,
+          imagen,
+        },
+      })
+    );
+    setNombre("");
+    setCantidad("");
+    setPrecioLocal("");
+    setPrecioPublico("");
+    setImagen("");
+
+    // window.history.go(-1);
+
+    console.log("Response", data);
+  };
 
   return (
     <>
@@ -37,35 +50,35 @@ const FormularioAccesorio = () => {
           <Form.Label for="">Nombre:</Form.Label>
           <Form.Control
             type="text"
-            // value={servicio}
-            // onChange={(e) => setServicio(e.target.value)}
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
           />
-          {/* <TextField id="outlined-basic" label="Servicio" variant="outlined" /> */}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label for="">Cantidad: </Form.Label>
           <Form.Control
             type="number"
-            // value={nombreCliente}
-            // onChange={(e) => setNombreCliente(e.target.value)}
+            value={cantidad}
+            onChange={(e) => setCantidad(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label for="">Precio Local: </Form.Label>
           <Form.Control
             type="number"
-            // value={nombreCliente}
-            // onChange={(e) => setNombreCliente(e.target.value)}
+            value={precioLocal}
+            onChange={(e) => setPrecioLocal(e.target.value)}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label for="">Precio Publico: </Form.Label>
           <Form.Control
             type="number"
-            // value={nombreCliente}
-            // onChange={(e) => setNombreCliente(e.target.value)}
+            value={precioPublico}
+            onChange={(e) => setPrecioPublico(e.target.value)}
           />
         </Form.Group>
+        <ImageUpload {...{ setImagen }} />
         <Button
           style={{
             fontSize: 30,
@@ -73,11 +86,22 @@ const FormularioAccesorio = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={() => {}}
+          onClick={() => {
+            handleSubmit();
+            setShow(true);
+            setTimeout(() => {
+              setShow(false);
+            }, 2000);
+          }}
         >
           Guardar Servicio
         </Button>
       </Form>
+      <Alert show={show} variant="success">
+        <div className="formulario padding">
+          <p>Accesorio Guardado Correctamente</p>
+        </div>
+      </Alert>
     </>
   );
 };

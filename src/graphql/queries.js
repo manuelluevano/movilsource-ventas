@@ -58,3 +58,38 @@ export const listTodos = /* GraphQL */ `
     }
   }
 `;
+export const getAccesorio = /* GraphQL */ `
+  query GetAccesorio($id: ID!) {
+    getAccesorio(id: $id) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAccesorios = /* GraphQL */ `
+  query ListAccesorios(
+    $filter: ModelAccesorioFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAccesorios(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        nombre
+        cantidad
+        precioLocal
+        precioPublico
+        imagen
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

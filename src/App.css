@@ -15,6 +15,17 @@
   width: 60%;
 }
 
+.img {
+  margin: 0 auto;
+  height: 200px;
+
+  /* width: 100px; */
+  /* height: 200px; */
+}
+
+.centrar {
+  margin: 0 auto;
+}
 
 .formulario {
   max-width: 50%;

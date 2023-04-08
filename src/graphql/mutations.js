@@ -85,3 +85,54 @@ export const deleteTodo = /* GraphQL */ `
     }
   }
 `;
+export const createAccesorio = /* GraphQL */ `
+  mutation CreateAccesorio(
+    $input: CreateAccesorioInput!
+    $condition: ModelAccesorioConditionInput
+  ) {
+    createAccesorio(input: $input, condition: $condition) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAccesorio = /* GraphQL */ `
+  mutation UpdateAccesorio(
+    $input: UpdateAccesorioInput!
+    $condition: ModelAccesorioConditionInput
+  ) {
+    updateAccesorio(input: $input, condition: $condition) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAccesorio = /* GraphQL */ `
+  mutation DeleteAccesorio(
+    $input: DeleteAccesorioInput!
+    $condition: ModelAccesorioConditionInput
+  ) {
+    deleteAccesorio(input: $input, condition: $condition) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;

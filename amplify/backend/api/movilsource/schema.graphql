@@ -22,3 +22,12 @@ type Todo @model {
   abono: Int
   precioCliente: Int
 }
+
+type Accesorio @model {
+  id: ID!
+  nombre: String!
+  cantidad: Int
+  precioLocal: Int
+  precioPublico: Int
+  imagen: String
+}

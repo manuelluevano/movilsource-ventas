@@ -76,3 +76,51 @@ export const onDeleteTodo = /* GraphQL */ `
     }
   }
 `;
+export const onCreateAccesorio = /* GraphQL */ `
+  subscription OnCreateAccesorio(
+    $filter: ModelSubscriptionAccesorioFilterInput
+  ) {
+    onCreateAccesorio(filter: $filter) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAccesorio = /* GraphQL */ `
+  subscription OnUpdateAccesorio(
+    $filter: ModelSubscriptionAccesorioFilterInput
+  ) {
+    onUpdateAccesorio(filter: $filter) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAccesorio = /* GraphQL */ `
+  subscription OnDeleteAccesorio(
+    $filter: ModelSubscriptionAccesorioFilterInput
+  ) {
+    onDeleteAccesorio(filter: $filter) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;

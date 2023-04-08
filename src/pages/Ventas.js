@@ -7,8 +7,7 @@ import {
 } from "@mui/x-data-grid";
 import { API, graphqlOperation } from "aws-amplify";
 import { listTodos } from "../graphql/queries";
-import { grey, indigo } from "@mui/material/colors";
-import EditService from "../components/EditService";
+import { grey } from "@mui/material/colors";
 import Actions from "../components/Actions";
 
 const VentasServicios = ({ setSelectedLink, link }) => {
@@ -74,13 +73,13 @@ const VentasServicios = ({ setSelectedLink, link }) => {
       },
       {
         field: "numeroTelefono",
-        headerName: "Numero",
+        headerName: "Telefono",
         width: 100,
         editable: true,
       },
       {
         field: "numeroNota",
-        headerName: "Nota",
+        headerName: "Folio",
         width: 60,
         editable: true,
       },
@@ -122,7 +121,7 @@ const VentasServicios = ({ setSelectedLink, link }) => {
       },
       {
         field: "dejoEquipoCon",
-        headerName: "Dejo equipo con:",
+        headerName: "Equipo +",
         width: 100,
         editable: true,
       },
@@ -141,7 +140,7 @@ const VentasServicios = ({ setSelectedLink, link }) => {
       },
       {
         field: "gastoServicio",
-        headerName: "Gasto de Servicio",
+        headerName: "Gasto local",
         width: 100,
         editable: true,
       },
@@ -179,7 +178,7 @@ const VentasServicios = ({ setSelectedLink, link }) => {
         component="h3"
         sx={{ textAlign: "center", mt: 3, mb: 3 }}
       >
-        Ventas Movilsource
+        Servicios Movilsource
       </Typography>
       {/* <div
         style={{

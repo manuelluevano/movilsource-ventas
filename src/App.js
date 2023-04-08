@@ -10,6 +10,7 @@ import Servicios from "./pages/Servicios";
 import Accesorios from "./pages/Accesorios";
 import EditService from "./components/EditService";
 import VentasAccesorios from "./pages/VentasAccesorios";
+import ListaAccesorios from "./pages/ListaAccesorios";
 
 Amplify.configure(awsconfig);
 
@@ -31,6 +32,10 @@ function App() {
         <Route
           path="/movilsource-ventas/ventasAccesorios"
           element={<VentasAccesorios />}
+        />
+        <Route
+          path="/movilsource-ventas/listaAccesorios"
+          element={<ListaAccesorios />}
         />
         <Route
           path="/movilsource-ventas/editService/:id"
