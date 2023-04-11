@@ -67,6 +67,7 @@ export const getAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
+      garantia
       createdAt
       updatedAt
     }
@@ -86,6 +87,7 @@ export const listAccesorios = /* GraphQL */ `
         precioLocal
         precioPublico
         imagen
+        garantia
         createdAt
         updatedAt
       }

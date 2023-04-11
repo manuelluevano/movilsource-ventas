@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Fab, LinearProgress } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Check, Save, Error } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 import { API, graphqlOperation } from "aws-amplify";
@@ -113,9 +113,8 @@ const AddAccesorioStock = ({
 
   return (
     <Box
-      //   style={{ marginTop: 20 }}
       sx={{
-        m: 0.5,
+        // m: 0.5,
         position: "relative",
       }}
     >

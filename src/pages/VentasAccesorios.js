@@ -4,50 +4,91 @@ import { graphqlOperation } from "aws-amplify";
 import { listAccesorios } from "../graphql/queries";
 import { API } from "aws-amplify";
 import Form from "react-bootstrap/Form";
-import { Box, Fab, Typography } from "@mui/material";
-import AddAccesorioStock from "../components/AddAccesorioStock";
-import { blue, red } from "@mui/material/colors";
-import { Add } from "@mui/icons-material";
+import { Box, Fab, LinearProgress, Typography } from "@mui/material";
+
+import { blue, blueGrey, red } from "@mui/material/colors";
+import { Add, Remove, Save } from "@mui/icons-material";
+import { updateAccesorio } from "../graphql/mutations";
 
 const VentasAccesorios = () => {
   const [accesorios, setAccesorios] = useState();
   const [id, setID] = useState();
-  const [show, setShow] = useState(true);
-  const [cantidad, setCantidad] = useState();
   const [reload, setReload] = useState(false);
-  const [venta, setVenta] = useState(true);
+  const [valor, setValor] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(itemId, itemCantidad) {
-    setReload(false);
+  async function handleDelete(itemId, cantidad) {
+    // setReload(false);
     setID(itemId);
-    console.log("ID ELEGIDO", itemId);
-    setShow(true);
-    setCantidad(itemCantidad);
-    console.log("cantidad id", itemCantidad);
+    console.log("Bajr valor");
 
-    // Agregamos mas stock
-    // try {
-    //   const data = await API.graphql(
-    //     graphqlOperation(updateAccesorio, {
-    //       id,
-    //       cantidad,
-    //     })
-    //   );
-    //   console.log("data", data);
-    // } catch (error) {
-    //   console.log("error", error);
-    // }
-    // console.log("Estado de ventana", show);
+    let v = valor;
+    if (v > 0) {
+      v--;
+    }
+
+    setValor(v);
+  }
+  async function handleAdd(itemId, item) {
+    console.log("ID SELECCIONADO", itemId);
+    console.log("ID ITEM", item.id);
+    console.log("CANTIDAD DEL ITEM", item.cantidad);
+    console.log("CANTIDAD PARA AGREGAR", valor);
+    setID(itemId);
+
+    if (valor === item.cantidad || valor > item.cantidad) {
+      console.log("es mayor");
+      setValor(0);
+      return;
+    }
+
+    let nuevoValor = valor;
+    nuevoValor++;
+    setValor(nuevoValor);
+  }
+  async function handleSubmit(itemId, item) {
+    setLoading(true);
+    // Vender
+    const numeroFinal = item.cantidad - valor;
+
+    console.log(numeroFinal);
+
+    const data = await API.graphql(
+      graphqlOperation(updateAccesorio, {
+        input: {
+          id: itemId,
+          cantidad: numeroFinal,
+        },
+      })
+    );
+    setReload(true);
+    setValor(0);
+    setLoading(false);
+    console.log("data", data);
   }
 
   useEffect(() => {
+    console.log("Valor", valor);
     (async () => {
       const { data } = await API.graphql(graphqlOperation(listAccesorios));
       setAccesorios(data.listAccesorios.items);
       console.log(data.listAccesorios.items);
     })();
+    setReload(false);
   }, [reload]);
 
+  const [progress, setProgress] = useState(10);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= 100 ? 0 : prevProgress + 10
+      );
+    }, 600);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
   return (
     <>
       <Box
@@ -74,24 +115,37 @@ const VentasAccesorios = () => {
                 class="col-sm-2 d-flex justify-content-center"
                 style={{ marginTop: "30px" }}
               >
-                <Card className="centrar">
+                <Card>
                   <Card.Img
-                    className="img"
+                    className={item.cantidad === 0 ? "disabled img" : "img"}
                     variant="top"
                     src={`${item.imagen}`}
                   />
+
                   <Card.Body
                     style={{
                       textAlign: "center",
                     }}
                   >
-                    <Form.Group>
+                    <Form.Group style={{ marginBottom: 10 }}>
                       <Form.Label for="">Existencia:</Form.Label>
                       <Form.Control
                         style={{ fontSize: "1rem", color: "blue" }}
                         disabled
                         type="number"
                         value={item.cantidad}
+                      />
+                    </Form.Group>
+                    <Form.Group style={{ marginBottom: 10 }}>
+                      <Form.Label for="">Precio:</Form.Label>
+                      <Form.Control
+                        style={{
+                          fontSize: "1rem",
+                          color: "blue",
+                        }}
+                        disabled
+                        type="text"
+                        value={"$" + item.precioPublico}
                       />
                     </Form.Group>
                     <Card.Title
@@ -105,33 +159,79 @@ const VentasAccesorios = () => {
                     <div
                       style={{ textAlign: "center", alignContent: "center" }}
                     >
-                      {id === item.id && show && item.cantidad > 0 ? (
-                        <AddAccesorioStock
-                          {...{ venta, id, show, setShow, cantidad, setReload }}
-                        />
-                      ) : (
-                        // <Button
-                        //   // style={{ marginTop: 20 }}
-                        //   onClick={async () => {
-                        //     await handleSubmit(item.id);
-                        //   }}
-                        // >
-                        //   +
-                        // </Button>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <Fab
                           onClick={async () => {
-                            await handleSubmit(item.id, item.cantidad);
+                            await handleDelete(item.id, item);
                           }}
                           color="primary"
                           sx={{
                             width: 40,
                             height: 40,
-                            bgcolor: item.cantidad <= 0 ? red[500] : blue[500],
-                            "&:hover": { bgcolor: blue[700] },
+                            bgcolor: item.cantidad <= 0 ? red[500] : blue[300],
+                            "&:hover": { bgcolor: blue[600] },
                           }}
+                          disabled={item.cantidad === 0}
+                        >
+                          <Remove />
+                        </Fab>
+
+                        <div>
+                          {(item.id === id && valor) ||
+                            (item.cantidad === 0 && (
+                              <p style={{ color: "red" }}>AGOTADO</p>
+                            ))}
+                        </div>
+                        <Fab
+                          onClick={async () => {
+                            await handleAdd(item.id, item);
+                          }}
+                          color="primary"
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            bgcolor: item.cantidad <= 0 ? red[500] : blue[300],
+                            "&:hover": { bgcolor: blue[600] },
+                          }}
+                          disabled={item.cantidad === 0}
                         >
                           <Add />
                         </Fab>
+                      </div>
+                      {item.id === id && (
+                        <div>
+                          <Fab
+                            onClick={async () => {
+                              await handleSubmit(item.id, item);
+                            }}
+                            color="primary"
+                            sx={{
+                              width: 40,
+                              height: 40,
+                              bgcolor:
+                                item.cantidad <= 0
+                                  ? blueGrey[500]
+                                  : blueGrey[300],
+                              "&:hover": { bgcolor: blueGrey[600] },
+                            }}
+                            disabled={item.cantidad === 0}
+                          >
+                            <Save />
+                          </Fab>
+                          {loading && (
+                            <LinearProgress
+                              style={{ marginTop: 10 }}
+                              variant="determinate"
+                              color="success"
+                              value={progress}
+                            />
+                          )}
+                        </div>
                       )}
                     </div>
                   </Card.Body>

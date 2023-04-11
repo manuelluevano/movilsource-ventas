@@ -30,4 +30,5 @@ type Accesorio @model {
   precioLocal: Int
   precioPublico: Int
   imagen: String
+  garantia: Int
 }

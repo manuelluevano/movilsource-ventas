@@ -97,6 +97,7 @@ export const createAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
+      garantia
       createdAt
       updatedAt
     }
@@ -114,6 +115,7 @@ export const updateAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
+      garantia
       createdAt
       updatedAt
     }
@@ -131,6 +133,7 @@ export const deleteAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
+      garantia
       createdAt
       updatedAt
     }
