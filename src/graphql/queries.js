@@ -67,7 +67,6 @@ export const getAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
-      garantia
       createdAt
       updatedAt
     }
@@ -87,6 +86,48 @@ export const listAccesorios = /* GraphQL */ `
         precioLocal
         precioPublico
         imagen
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getAccesorioReporte = /* GraphQL */ `
+  query GetAccesorioReporte($id: ID!) {
+    getAccesorioReporte(id: $id) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
+      garantia
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAccesorioReportes = /* GraphQL */ `
+  query ListAccesorioReportes(
+    $filter: ModelAccesorioReporteFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAccesorioReportes(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        nombre
+        cantidad
+        precioLocal
+        precioPublico
+        imagen
+        fecha
         garantia
         createdAt
         updatedAt

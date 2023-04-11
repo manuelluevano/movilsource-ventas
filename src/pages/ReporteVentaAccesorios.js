@@ -6,11 +6,10 @@ import {
   GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 import { API, graphqlOperation } from "aws-amplify";
-import { listTodos } from "../graphql/queries";
+import { listAccesorioReportes, listTodos } from "../graphql/queries";
 import { grey } from "@mui/material/colors";
-import Actions from "../components/Actions";
 
-const VentasServicios = ({ setSelectedLink, link }) => {
+const ReporteVentaAccesorios = ({ setSelectedLink, link }) => {
   const [todos, setTodos] = useState([]);
   const [pageSize, setPageSize] = useState(5);
   const [rowId, setRowId] = useState(null);
@@ -41,127 +40,58 @@ const VentasServicios = ({ setSelectedLink, link }) => {
   useEffect(() => {
     (async () => {
       const { data } = await API.graphql(
-        graphqlOperation(listTodos, {
+        graphqlOperation(listAccesorioReportes, {
           // typename: "Order",
           // sortDirection: "ASC", // or ASC
         })
       );
 
-      setTodos(data.listTodos.items);
+      setTodos(data.listAccesorioReportes.items);
       // console.log(data.listTodos.items);
     })();
   }, [rowId]);
 
   const columns = useMemo(
     () => [
-      // {
-      //   field: "id",
-      //   headerName: "ID",
-      //   width: 100,
-      // },
       {
-        field: "servicio",
-        headerName: "servicio",
+        field: "id",
+        headerName: "ID",
         width: 100,
-        editable: true,
       },
       {
-        field: "nombreCliente",
-        headerName: "Nombre Cliente",
+        field: "nombre",
+        headerName: "Nombre",
+        width: 200,
+      },
+      {
+        field: "cantidad",
+        headerName: "Vendidos",
         width: 150,
-        editable: true,
       },
       {
-        field: "numeroTelefono",
-        headerName: "Telefono",
-        width: 100,
-        editable: true,
+        field: "garantia",
+        headerName: "Garantia",
+        width: 200,
       },
       {
-        field: "numeroNota",
-        headerName: "Folio",
-        width: 60,
-        editable: true,
+        field: "precioLocal",
+        headerName: "Precio a local",
+        width: 200,
       },
       {
-        field: "numeroSerie",
-        headerName: "N.SERIE",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "imei",
-        headerName: "Imei",
-        width: 120,
-        editable: true,
+        field: "precioPublico",
+        headerName: "Precio a publico",
+        width: 200,
       },
       {
         field: "fecha",
-        headerName: "Fecha",
-        width: 100,
-        editable: true,
+        headerName: "Fecha`",
+        width: 200,
       },
       {
-        field: "marca",
-        headerName: "Marca",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "modelo",
-        headerName: "Modelo",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "problemaSolicitud",
-        headerName: "Problema/Solicitud",
-        width: 150,
-        editable: true,
-      },
-      {
-        field: "dejoEquipoCon",
-        headerName: "Equipo +",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "observacionTecnico",
-        headerName: "Obeservaciones Tecnico",
-        width: 150,
-        editable: true,
-      },
-      {
-        field: "status",
-        headerName: "Status",
-        width: 60,
-        type: "boolean",
-        editable: true,
-      },
-      {
-        field: "gastoServicio",
-        headerName: "Gasto local",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "abono",
-        headerName: "Abono",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "precioCliente",
-        headerName: "Precio Cliente",
-        width: 100,
-        editable: true,
-      },
-      {
-        field: "actions",
-        headerName: "Actions",
-        type: "actions",
-        width: 110,
-        renderCell: (params) => <Actions {...{ params, rowId, setRowId }} />,
+        field: "imagen",
+        headerName: "Imagen`",
+        width: 200,
       },
     ],
     [rowId]
@@ -180,24 +110,7 @@ const VentasServicios = ({ setSelectedLink, link }) => {
       >
         Servicios Movilsource
       </Typography>
-      {/* <div
-        style={{
-          textAlign: "center",
-          alignContent: "center",
-          justifyContent: "center",
-          justifyItems: "center",
-          margin: 30,
-        }}
-      >
-        <TextField
-          sx={{
-            width: "50%",
-          }}
-          id="outlined-basic"
-          label=" Buscar"
-          variant="outlined"
-        />
-      </div> */}
+
       <DataGrid
         onCellClick={(params) => setRowId(params.id)}
         columns={columns}
@@ -239,4 +152,4 @@ const VentasServicios = ({ setSelectedLink, link }) => {
   );
 };
 
-export default VentasServicios;
+export default ReporteVentaAccesorios;

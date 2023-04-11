@@ -30,5 +30,15 @@ type Accesorio @model {
   precioLocal: Int
   precioPublico: Int
   imagen: String
-  garantia: Int
+}
+
+type AccesorioReporte @model {
+  id: ID!
+  nombre: String!
+  cantidad: Int
+  precioLocal: Int
+  precioPublico: Int
+  imagen: String
+  fecha: String
+  garantia: String
 }

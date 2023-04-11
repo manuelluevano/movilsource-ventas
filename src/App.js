@@ -11,6 +11,7 @@ import Accesorios from "./pages/Accesorios";
 import EditService from "./components/EditService";
 import VentasAccesorios from "./pages/VentasAccesorios";
 import ListaAccesorios from "./pages/ListaAccesorios";
+import ReporteVentaAccesorios from "./pages/ReporteVentaAccesorios";
 
 Amplify.configure(awsconfig);
 
@@ -40,6 +41,10 @@ function App() {
         <Route
           path="/movilsource-ventas/editService/:id"
           element={<EditService />}
+        />
+        <Route
+          path="/movilsource-ventas/reporteAccesorios"
+          element={<ReporteVentaAccesorios />}
         />
         <Route path="*" element={<NoFound />} />
       </Routes>

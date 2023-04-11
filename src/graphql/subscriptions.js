@@ -87,7 +87,6 @@ export const onCreateAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
-      garantia
       createdAt
       updatedAt
     }
@@ -104,7 +103,6 @@ export const onUpdateAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
-      garantia
       createdAt
       updatedAt
     }
@@ -121,6 +119,59 @@ export const onDeleteAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateAccesorioReporte = /* GraphQL */ `
+  subscription OnCreateAccesorioReporte(
+    $filter: ModelSubscriptionAccesorioReporteFilterInput
+  ) {
+    onCreateAccesorioReporte(filter: $filter) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
+      garantia
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAccesorioReporte = /* GraphQL */ `
+  subscription OnUpdateAccesorioReporte(
+    $filter: ModelSubscriptionAccesorioReporteFilterInput
+  ) {
+    onUpdateAccesorioReporte(filter: $filter) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
+      garantia
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAccesorioReporte = /* GraphQL */ `
+  subscription OnDeleteAccesorioReporte(
+    $filter: ModelSubscriptionAccesorioReporteFilterInput
+  ) {
+    onDeleteAccesorioReporte(filter: $filter) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
       garantia
       createdAt
       updatedAt

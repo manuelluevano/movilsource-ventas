@@ -97,7 +97,6 @@ export const createAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
-      garantia
       createdAt
       updatedAt
     }
@@ -115,7 +114,6 @@ export const updateAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
-      garantia
       createdAt
       updatedAt
     }
@@ -133,6 +131,62 @@ export const deleteAccesorio = /* GraphQL */ `
       precioLocal
       precioPublico
       imagen
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createAccesorioReporte = /* GraphQL */ `
+  mutation CreateAccesorioReporte(
+    $input: CreateAccesorioReporteInput!
+    $condition: ModelAccesorioReporteConditionInput
+  ) {
+    createAccesorioReporte(input: $input, condition: $condition) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
+      garantia
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAccesorioReporte = /* GraphQL */ `
+  mutation UpdateAccesorioReporte(
+    $input: UpdateAccesorioReporteInput!
+    $condition: ModelAccesorioReporteConditionInput
+  ) {
+    updateAccesorioReporte(input: $input, condition: $condition) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
+      garantia
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAccesorioReporte = /* GraphQL */ `
+  mutation DeleteAccesorioReporte(
+    $input: DeleteAccesorioReporteInput!
+    $condition: ModelAccesorioReporteConditionInput
+  ) {
+    deleteAccesorioReporte(input: $input, condition: $condition) {
+      id
+      nombre
+      cantidad
+      precioLocal
+      precioPublico
+      imagen
+      fecha
       garantia
       createdAt
       updatedAt
